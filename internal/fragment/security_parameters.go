@@ -2,21 +2,23 @@ package fragment
 
 import (
 	"fmt"
+
+	"github.com/nnnewb/gmtls/internal/common"
 )
 
 type SecurityParameters struct {
-	Entity               ConnectionEnd       // 表示本端在连接中的角色，为客户端或服务端
-	BulkCipherAlgorithm  BulkCipherAlgorithm // 表示数据加解密的密码算法
-	CipherType           CipherType          // 表示密码算法的类型
-	KeyMaterialLength    uint8               //
-	MacAlgorithm         MacAlgorithm        // 表示用于计算和校验消息完整性的杂凑算法。
-	HashSize             uint8               //
-	CompressionAlgorithm CompressionMethod   // 表示压缩算法
-	MasterSecret         [48]byte            // 协商过程中由预主秘钥、客户端随机数、服务端随机数计算而成的 48 字节秘钥
-	ClientRandom         [32]byte            // 表示客户端随机数
-	ServerRandom         [32]byte            // 表示服务端随机数
-	RecordIVLength       uint8               // IV 长度
-	MacLength            uint8               // MAC 长度
+	Entity               ConnectionEnd            // 表示本端在连接中的角色，为客户端或服务端
+	BulkCipherAlgorithm  BulkCipherAlgorithm      // 表示数据加解密的密码算法
+	CipherType           CipherType               // 表示密码算法的类型
+	KeyMaterialLength    uint8                    //
+	MacAlgorithm         MacAlgorithm             // 表示用于计算和校验消息完整性的杂凑算法。
+	HashSize             uint8                    //
+	CompressionAlgorithm common.CompressionMethod // 表示压缩算法
+	MasterSecret         [48]byte                 // 协商过程中由预主秘钥、客户端随机数、服务端随机数计算而成的 48 字节秘钥
+	ClientRandom         [32]byte                 // 表示客户端随机数
+	ServerRandom         [32]byte                 // 表示服务端随机数
+	RecordIVLength       uint8                    // IV 长度
+	MacLength            uint8                    // MAC 长度
 }
 
 func (s *SecurityParameters) String() string {
@@ -120,26 +122,6 @@ func (m MacAlgorithm) String() string {
 		return "SHA1"
 	case MacAlgorithmSM3:
 		return "SM3"
-	default:
-		return "unknown"
-	}
-}
-
-// CompressionMethod 定义于 GM/T 0024-2014 第 6.3.1 节
-// 表示压缩算法
-type CompressionMethod uint8
-
-const (
-	CompressionMethodNull    CompressionMethod = 0
-	CompressionMethodMaximum CompressionMethod = 255
-)
-
-var _ = CompressionMethodMaximum
-
-func (c CompressionMethod) String() string {
-	switch c {
-	case CompressionMethodNull:
-		return "null"
 	default:
 		return "unknown"
 	}
