@@ -1,4 +1,4 @@
-package handshake
+package handshaking
 
 // AlertMessage 握手协议族中的报警协议。定义于 GM/T 0024-2014 第 6.4.2 节。
 type AlertMessage struct {

@@ -1,4 +1,4 @@
-package handshake
+package handshaking
 
 // ChangeCipherSpecMessage 握手协议族中的密码规格变更协议。定义于 GM/T 0024-2014 第 6.4.1 节。
 type ChangeCipherSpecMessage struct {
