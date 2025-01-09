@@ -1,4 +1,4 @@
-package gmtls_test
+package common_test
 
 import (
 	"crypto/sha1"
@@ -8,10 +8,9 @@ import (
 	"hash"
 	"testing"
 
+	"github.com/nnnewb/gmtls/internal/common"
 	"github.com/stretchr/testify/assert"
 	"github.com/tjfoc/gmsm/sm3"
-
-	"github.com/nnnewb/gmtls"
 )
 
 func Test_PHash(t *testing.T) {
@@ -55,7 +54,7 @@ func Test_PHash(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gmtls.PHash(tt.args.result, tt.args.secret, tt.args.seed, tt.args.hash)
+			common.PHash(tt.args.result, tt.args.secret, tt.args.seed, tt.args.hash)
 			assert.NotEqual(t, make([]byte, 32), tt.args.result)
 			t.Logf("gmtls.PHash result: %s", hex.EncodeToString(tt.args.result))
 		})
@@ -69,20 +68,20 @@ func Benchmark_PHash(b *testing.B) {
 	b.Run("PHash with SM3", func(b *testing.B) {
 		h := sm3.New
 		for i := 0; i < b.N; i++ {
-			gmtls.PHash(result, secret, seed, h)
+			common.PHash(result, secret, seed, h)
 		}
 	})
 
 	b.Run("PHash with sha256", func(b *testing.B) {
 		h := sha256.New
 		for i := 0; i < b.N; i++ {
-			gmtls.PHash(result, secret, seed, h)
+			common.PHash(result, secret, seed, h)
 		}
 	})
 
 	b.Run("PHashSM3", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			gmtls.PHashSM3(result, secret, seed)
+			common.PHashSM3(result, secret, seed)
 		}
 	})
 }

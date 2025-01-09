@@ -1,9 +1,5 @@
 package handshaking
 
-import (
-	"github.com/nnnewb/gmtls/internal/common"
-)
-
 type Uint24 uint32
 
 type Handshake struct {
@@ -52,13 +48,4 @@ func (h HandshakeType) String() string {
 	default:
 		return "unknown"
 	}
-}
-
-// ClientHello 是 Client Hello 消息，定义于 GM/T 0024-2014 第 6.4.4.1.1 节
-type ClientHello struct {
-	ClientVersion      common.ProtocolVersion
-	Random             common.Random
-	SessionID          common.SessionID
-	CipherSuites       []common.CipherSuite
-	CompressionMethods common.CompressionMethod
 }

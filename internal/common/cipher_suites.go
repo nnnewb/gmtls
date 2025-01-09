@@ -1,5 +1,7 @@
 package common
 
+// CipherSuite 密码套件。定义于 GM/T 0024-2014 第 6.4.4.1.1 节。
+// 每个密码套件包含一个秘钥交换算法、一个加密算法和一个校验算法。
 type CipherSuite uint16
 
 const (
@@ -43,6 +45,34 @@ func (c CipherSuite) String() string {
 		return "RSA_SM4_SM3"
 	case CipherSuite_RSA_SM4_SHA1:
 		return "RSA_SM4_SHA1"
+	default:
+		return "unknown"
+	}
+}
+
+// KeyExchangeAlgorithm 密钥交换算法。定义于 GM/T 0024-2014 第 6.4.4.3 节。
+type KeyExchangeAlgorithm uint8
+
+const (
+	KeyExchangeAlgorithmECDHE KeyExchangeAlgorithm = 1
+	KeyExchangeAlgorithmECC   KeyExchangeAlgorithm = 2
+	KeyExchangeAlgorithmIBSDH KeyExchangeAlgorithm = 3
+	KeyExchangeAlgorithmIBC   KeyExchangeAlgorithm = 4
+	KeyExchangeAlgorithmRSA   KeyExchangeAlgorithm = 5
+)
+
+func (a KeyExchangeAlgorithm) String() string {
+	switch a {
+	case KeyExchangeAlgorithmECDHE:
+		return "ECDHE"
+	case KeyExchangeAlgorithmECC:
+		return "ECC"
+	case KeyExchangeAlgorithmIBSDH:
+		return "IBSDH"
+	case KeyExchangeAlgorithmIBC:
+		return "IBC"
+	case KeyExchangeAlgorithmRSA:
+		return "RSA"
 	default:
 		return "unknown"
 	}

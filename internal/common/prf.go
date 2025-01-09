@@ -1,4 +1,4 @@
-package gmtls
+package common
 
 import (
 	"crypto/hmac"
